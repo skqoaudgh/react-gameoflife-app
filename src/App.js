@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import "./App.css";
 
 import Grid from "./Grid";
+import Buttons from './Buttons';
 
 class App extends Component {
   constructor(props) {
@@ -44,7 +45,11 @@ class App extends Component {
   playButton = () => {
     clearInterval(this.intervalId);
     this.intervalId = setInterval(this.play, this.speed);
-  };
+  }
+
+  pauseButton = () => {
+    clearInterval(this.intervalId);
+  }
 
   play = () => {
     let g = this.state.gridFull;
@@ -79,6 +84,15 @@ class App extends Component {
     return (
       <div>
         <h1>The Game of Life</h1>
+        <Buttons
+          playButton={this.playButton}
+          pauseButton={this.pauseButton}
+          slow={this.slow}
+          fast={this.fast}
+          clear={this.clear}
+          seed={this.seed}
+          gridSize={this.gridSize}
+        />
         <Grid
           rows={this.rows}
           cols={this.cols}
