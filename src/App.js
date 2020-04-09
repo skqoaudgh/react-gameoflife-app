@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import "./App.css";
 
 import Grid from "./Grid";
-import Buttons from './Buttons';
+import Buttons from "./Buttons";
 
 class App extends Component {
   constructor(props) {
@@ -45,11 +45,49 @@ class App extends Component {
   playButton = () => {
     clearInterval(this.intervalId);
     this.intervalId = setInterval(this.play, this.speed);
-  }
+  };
 
   pauseButton = () => {
     clearInterval(this.intervalId);
-  }
+  };
+
+  slow = () => {
+    this.speed = 1000;
+    this.playButton();
+  };
+
+  fast = () => {
+    this.speed = 100;
+    this.playButton();
+  };
+
+  clear = () => {
+    const grid = Array(this.rows)
+      .fill()
+      .map((_) => Array(this.cols).fill(false));
+    this.setState({
+      gridFull: grid,
+      generation: 0,
+    });
+  };
+
+  gridSize = (size) => {
+    switch (size) {
+      case "1":
+        this.cols = 20;
+        this.rows = 10;
+        break;
+      case "2":
+        this.cols = 50;
+        this.rows = 30;
+        break;
+      default:
+        this.cols = 70;
+        this.rows = 50;
+        break;
+    }
+    this.clear();
+  };
 
   play = () => {
     let g = this.state.gridFull;
@@ -65,7 +103,8 @@ class App extends Component {
         if (j > 0) if (g[i][j - 1]) count += 1;
         if (i < this.rows - 1) if (g[i + 1][j]) count += 1;
         if (i < this.rows - 1 && j > 0) if (g[i + 1][j - 1]) count += 1;
-        if (i < this.rows - 1 && j < this.cols - 1 && g[i + 1][j + 1]) count += 1;
+        if (i < this.rows - 1 && j < this.cols - 1 && g[i + 1][j + 1])
+          count += 1;
         if (g[i][j] && (count < 2 || count > 3)) g2[i][j] = false;
         if (!g[i][j] && count === 3) g2[i][j] = true;
       }
