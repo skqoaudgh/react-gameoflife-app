@@ -34,6 +34,8 @@ class App extends Component {
       for (let j = 0; j < this.cols; j++) {
         if (Math.floor(Math.random() * 5) === 1) {
           gridCopy[i][j] = true;
+        } else {
+          gridCopy[i][j] = false;
         }
       }
     }
