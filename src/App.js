@@ -27,6 +27,24 @@ class App extends Component {
     });
   }
 
+  seed = () => {
+    const gridCopy = JSON.parse(JSON.stringify(this.state.gridFull));
+    for(let i=0; i<this.rows; i++) {
+      for(let j=0; j<this.cols; j++) {
+        if(Math.floor(Math.random() * 5)  === 1) {
+          gridCopy[i][j] = true;
+        }
+      }
+    }
+    this.setState({
+      gridFull: gridCopy,
+    });
+  }
+
+  componentDidMount() {
+    this.seed();
+  }
+
   render() {
     return (
       <div>
