@@ -19,6 +19,14 @@ class App extends Component {
     };
   }
 
+  selectBox = (row, col) => {
+    const gridCopy = JSON.parse(JSON.stringify(this.state.gridFull));
+    gridCopy[row][col] = !gridCopy[row][col];
+    this.setState({
+      gridFull: gridCopy,
+    });
+  }
+
   render() {
     return (
       <div>
